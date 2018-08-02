@@ -2,5 +2,35 @@
   task-list works!
 </p>
 <input type="text" [(ngModel)]="taskId">
-<button (click)="gotoAddPage()">GOTO</button>
+<button nz-button (click)="gotoDetailPage()">GOTO</button>
 <p>{{taskId}}</p>
+
+<button nz-button (click)="gotoAddPage()">ADD</button>
+
+<div nz-row>
+  <div nz-col nzSpan="12">
+    <nz-table #basicTable [nzData]="taskList">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Result</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{data.id}}</td>
+        <td>{{data.name}}</td>
+        <td>{{data.result}}</td>
+        <td>
+          <a>Action 一 {{data.id}}</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a>Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+

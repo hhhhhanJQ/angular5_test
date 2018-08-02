@@ -5,8 +5,6 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
   _cacheRouters: { [key: string]: any } = {};
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     // 只有在routerNeedReuse中的值可复用，route为上一次路由
-    console.log('路由是否可复用');
-    console.log(route.routeConfig);
     if (route.data && route.data.reuse) {
       return true;
     }
@@ -24,33 +22,22 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
       handle: handle,
       params: route.url[1] ? route.url[1].path : 'noParams'
     };
-    console.log('路由存储');
-    console.log(route.routeConfig);
-    console.log(this._cacheRouters);
   }
   shouldAttach(route: ActivatedRouteSnapshot): boolean {
     // 在缓存中有的都认为允许还原路由，route为当前路由最后一级
-    console.log('路由需还原');
-    console.log(route.url[1]);
     if (!!route.routeConfig && !!this._cacheRouters[route.routeConfig.path]) {
       if (!route.url[1]) {
-        console.log('二级路由不存在');
         return true;
       }
       if (route.url[1].path !== this._cacheRouters[route.routeConfig.path].params) {
-        console.log('二级路由存在且不相等');
         return false;
       }
-      console.log('其他')
       return true;
     }
-    console.log('未存过')
     return false;
   }
   retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle {
     // 从缓存中获取快照，若无则返回null，route为当前路由变化的每一级
-    console.log('缓存中的路由获取');
-    console.log(route.routeConfig);
     if (!route.routeConfig || !this._cacheRouters[route.routeConfig.path]) {
       return null;
     }
@@ -60,11 +47,6 @@ export class SimpleReuseStrategy implements RouteReuseStrategy {
     // 返回true时，继续判断下一级路由
     // 判断返回前的路由是否需要不需要清除，一是level >= 当前，二是canReuse
     // 当level==2路由改变时，清除所有路由缓存
-    console.log('路由是否要复用');
-    // console.log(this._cacheRouters);
-    // console.log(curr);
-    // console.log(future);
-    // return future.routeConfig === curr.routeConfig;
     return false;
   }
   deleteRouteSnapshot(name: string): void {

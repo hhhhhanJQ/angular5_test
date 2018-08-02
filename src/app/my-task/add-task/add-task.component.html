@@ -1,5 +1,24 @@
-<p>
-  add-task works!
-</p>
-<input type="text" [value]="addValue">
-<p>id = {{id}}</p>
+<div>
+  <button nz-button (click)="backToListPage()" nzType="primary">返回</button>
+  <form nz-form [formGroup]="addTaskForm" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="taskName">taskName</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input formControlName="taskName" nz-input placeholder="taskName" id="taskName">
+        <nz-form-explain *ngIf="addTaskForm.get('taskName').dirty && addTaskForm.get('taskName').errors">Please input your username!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="frequency">frequency</nz-form-label>
+      <nz-form-control [nzSm]="14" [nzXs]="24">
+        <input formControlName="frequency" nz-input placeholder="frequency" id="frequency">
+        <nz-form-explain *ngIf="addTaskForm.get('frequency').dirty && addTaskForm.get('frequency').errors">Please input your Password!</nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary">Log in</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

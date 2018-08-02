@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-add-task',
@@ -7,16 +8,28 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./add-task.component.css']
 })
 export class AddTaskComponent implements OnInit {
-  public addValue = '';
-  public id = '';
-  constructor(private activatedRoute: ActivatedRoute,
+  public addTaskForm: FormGroup;
+  public taskData = {
+    taskName: '',
+    frequency: '',
+  };
+  constructor(private fb: FormBuilder,
               private router: Router) {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit() {
-    this.id = this.activatedRoute.snapshot.params.id;
-
+    this.addTaskForm = this.fb.group({
+      taskName: ['', [Validators.required]],
+      frequency: ['', [Validators.required]]
+    });
   }
+  backToListPage() {
+    this.taskData.taskName = this.addTaskForm.controls['taskName'].value || '';
+    this.taskData.frequency = this.addTaskForm.controls['frequency'].value || '';
+    this.router.navigateByUrl('taskList');
+  }
+  submitForm() {
+  }
+
 
 }
