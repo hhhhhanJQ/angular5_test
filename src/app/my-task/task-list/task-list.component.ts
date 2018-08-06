@@ -20,8 +20,14 @@ export class TaskListComponent implements OnInit {
     this.router.navigateByUrl('taskDetail/' + this.taskId);
   }
   gotoAddPage() {
-    console.log('gotoAddPage');
     this.router.navigateByUrl('addTask');
   }
+  gotoMemoPage() {
+    this.router.navigateByUrl('/taskList/addMemo');
+  }
+  gotoMomentsPage() {
+    this.router.navigateByUrl('/moments/list');
+  }
+
 
 }

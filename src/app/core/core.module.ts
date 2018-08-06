@@ -3,6 +3,7 @@ import {RouteReuseStrategy} from '@angular/router';
 import {SimpleReuseStrategy} from './common/simple-reuse-strategy';
 import {ParamsGuard, LeaveGuard} from './guard/params.guard';
 import {UnsavedGuard} from './guard/unsaved.guard';
+import {ChildActivateGuard, ChildLoadGuard} from './guard/children.guard';
 
 /**
  * 定义拦截器顺序，
@@ -18,7 +19,9 @@ const RouterReuse = {provide: RouteReuseStrategy, useClass: SimpleReuseStrategy}
     RouterReuse,
     ParamsGuard,
     LeaveGuard,
-    UnsavedGuard
+    UnsavedGuard,
+    ChildActivateGuard,
+    ChildLoadGuard
   ]
 })
 export class CoreModule {
